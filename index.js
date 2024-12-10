@@ -10,28 +10,23 @@ const employeeEval = [
 const filteredData = employeeEval.filter(item => item.tasksCompleted>5);
 
 const mappedData = filteredData.map(employee => {
-    let performance;
-  if(employee.rating > 4.5){
-      performance = "Excellent";
-  }
-  else if(employee.rating>3 && employee.rating<4.5){
-    performance = "Good";
-  }
-  else{
-    performance = "Needs Improvement";
-  }
-
-  return{name:employee.name, performance: performance};
+    return {
+      name:employee.name,
+      performanceLevel:employee.rating>4.5?"Excellent":employee.rating>3 && employee.rating<4.5?"Good":"Needs IMprovement"
+    }
+     
 });
 
 const sortedData = mappedData.sort((a,b) => {
-    if(a.performance=="Excellent" && b.performance!="Excellent"){
-        return -1;
-    }
-    if(b.performance=="Excellent" && a.performance!= "Excellent"){
+    if(a.performanceLevel>b.performanceLevel){
         return 1;
     }
-    // return a.name.localeCompare(b.name);
+   else if(a.performanceLevel<b.performanceLevel){
+        return -1;
+    }
+    else{
+      return 0
+    }
 });
 
 console.log(sortedData);
